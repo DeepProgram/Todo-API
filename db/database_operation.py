@@ -9,7 +9,7 @@ from auth.bcrypt_process import get_password_hash
 
 def get_all_todo_list(db: Session, user_id: int):
     todo_list = list(map(
-        lambda x: {"title": x.title, "description": x.description, "priority": x.priority, "complete": x.complete},
+        lambda x: {"id": x.id, "title": x.title, "description": x.description, "priority": x.priority, "complete": x.complete},
         db.query(database_models.Todo).filter_by(owner_id=user_id).all()))
     return todo_list
 

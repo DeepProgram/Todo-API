@@ -46,7 +46,7 @@ async def root():
 
 @app.get("/db", response_model=Union[Dict[str, List[schemas.TodoInfo]], Dict[str, schemas.TodoInfo], Dict[str, str]])
 async def get_todo(_id: Optional[int] = None, db: Session = Depends(get_db),
-                   user: Dict[str, Union[str,int]] = Depends(get_current_user_from_jwt_token)):
+                   user: Dict[str, Union[str, int]] = Depends(get_current_user_from_jwt_token)):
     if not user:
         raise unauthorized_token_exception()
     if _id:
@@ -74,8 +74,8 @@ async def save_todo(todo: schemas.TodoInfoWithoutComplete, db: Session = Depends
 
 
 @app.put("/update")
-async def update_todo(_id: int, todo: schemas.TodoInfo = Depends(), db: Session = Depends(get_db),
-                      user: Dict[str, Union[str,int]] = Depends(get_current_user_from_jwt_token)):
+async def update_todo(todo: schemas.TodoInfo = Depends(), db: Session = Depends(get_db),
+                      user: Dict[str, Union[str, int]] = Depends(get_current_user_from_jwt_token)):
     if user:
         processed_todo_params = {}
         for keys, value in dict(todo).items():
@@ -84,7 +84,7 @@ async def update_todo(_id: int, todo: schemas.TodoInfo = Depends(), db: Session 
         if Counter(processed_todo_params.values())[None] == 4:
             raise HTTPException(status_code=419, detail="No Query Is Passed In The Parameter")
         else:
-            update_success = update_todo_status_in_database(db, _id, processed_todo_params, user["id"])
+            update_success = update_todo_status_in_database(db, todo.id, processed_todo_params, user["id"])
             if not update_success:
                 raise HTTPException(status_code=420, detail="Update Failed")
             return {

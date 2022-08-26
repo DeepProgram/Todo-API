@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, validator
 
 
 class TodoInfo(BaseModel):
+    id: int
     title: Optional[str] = Field(max_length=80)
     description: Optional[str] = Field(max_length=100)
     priority: Optional[int] = Field(le=10, ge=1)
