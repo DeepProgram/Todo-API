@@ -18,6 +18,12 @@ This is an API to save user info and save todos of those user on backend databas
 ![App Screenshot](https://github.com/DeepProgram/Todo-API/raw/images/todo-api-update.png)
 
 
+## Requirements Installation
+
+To install the requirements run the below command in terminal or cmd
+```bash
+   pip install -r requirements.txt
+```
 
 ## Deployment Todo Endpoints
 
